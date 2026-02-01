@@ -1,0 +1,407 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOM Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .alert-success-custom {
+            background-color: #d1f2eb;
+            border-left: 4px solid #1abc9c;
+            color: #0c5e4a;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-header {
+            margin-bottom: 30px;
+        }
+
+            .dashboard-header h1 {
+                color: #2c3e50;
+                font-weight: 600;
+                margin-bottom: 5px;
+            }
+
+            .dashboard-header p {
+                color: #7f8c8d;
+                font-size: 14px;
+            }
+
+        .stat-card {
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card-purple {
+            background: linear-gradient(135deg, #e8e4f3 0%, #f0edf7 100%);
+            border-left: 4px solid #6c5ce7;
+        }
+
+        .stat-card-green {
+            background: linear-gradient(135deg, #d1f2eb 0%, #e8f8f5 100%);
+            border-left: 4px solid #1abc9c;
+        }
+
+        .stat-card-blue {
+            background: linear-gradient(135deg, #d6eaf8 0%, #ebf5fb 100%);
+            border-left: 4px solid #3498db;
+        }
+
+        .stat-card-orange {
+            background: linear-gradient(135deg, #ffe8cc 0%, #fff3e6 100%);
+            border-left: 4px solid #f39c12;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .icon-purple {
+            background-color: #6c5ce7;
+        }
+
+        .icon-green {
+            background-color: #1abc9c;
+        }
+
+        .icon-blue {
+            background-color: #3498db;
+        }
+
+        .icon-orange {
+            background-color: #f39c12;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-change {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .change-up {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .change-down {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .chart-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            height: 100%;
+        }
+
+            .chart-card h5 {
+                color: #2c3e50;
+                font-weight: 600;
+                margin-bottom: 20px;
+            }
+
+        .btn-refresh {
+            color: #6c5ce7;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+
+        .btn-export {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 20px;
+            font-size: 14px;
+        }
+
+            .btn-export:hover {
+                background-color: #229954;
+            }
+
+        .donut-chart {
+            width: 280px;
+            height: 280px;
+            margin: 30px auto;
+            position: relative;
+        }
+
+            .donut-chart svg {
+                transform: rotate(-90deg);
+            }
+
+        .chart-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .legend-color {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+            margin-right: 8px;
+        }
+
+        .stat-card {
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+            .stat-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            }
+
+        .bar-chart {
+            margin-top: 30px;
+        }
+
+        .bar-item {
+            margin-bottom: 20px;
+        }
+
+        .bar-label {
+            font-size: 13px;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .bar-background {
+            background-color: #ecf0f1;
+            height: 30px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            background-color: #5b8dee;
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid p-4">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#" style="color: #7f8c8d; text-decoration: none;">🏠</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            </ol>
+        </nav>
+
+        <!-- Welcome Alert -->
+        <div class="alert-success-custom d-flex justify-content-between align-items-center">
+            <div>
+                <strong>✓ Welcome back, shh!</strong>
+            </div>
+            <button type="button" class="btn-close" aria-label="Close"></button>
+        </div>
+
+        <!-- Dashboard Header -->
+        <div class="dashboard-header d-flex justify-content-between align-items-center">
+            <div>
+                <h1>Dashboard</h1>
+                <p>Meeting management overview and analytics</p>
+            </div>
+            <div>
+                <button class="btn btn-refresh me-2">🔄 Refresh</button>
+                <button class="btn btn-export">⬇ Export Report</button>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card stat-card-purple">
+                    <div class="stat-icon icon-purple">📅</div>
+                    <div class="stat-number">15</div>
+                    <div class="stat-label">Total Meetings</div>
+                    <span class="stat-change change-up">↑ 12% from last month</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card stat-card-green">
+                    <div class="stat-icon icon-green">📋</div>
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Upcoming</div>
+                    <span class="stat-change change-up">↑ 8% from last week</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card stat-card-blue">
+                    <div class="stat-icon icon-blue">✓</div>
+                    <div class="stat-number">10</div>
+                    <div class="stat-label">Completed</div>
+                    <span class="stat-change change-up">↑ 15% completion rate</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card stat-card-orange">
+                    <div class="stat-icon icon-orange">⊗</div>
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Cancelled</div>
+                    <span class="stat-change change-down">↓ 3% cancellation rate</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="row mt-4">
+            <div class="col-lg-6">
+                <div class="chart-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5>Meetings by Type</h5>
+                        <div>
+                            <button class="btn btn-sm" style="border: none; background: none; color: #95a5a6;">🔄</button>
+                            <button class="btn btn-sm" style="border: none; background: none; color: #95a5a6;">⬇</button>
+                        </div>
+                    </div>
+                    <div class="donut-chart">
+                        <svg width="280" height="280" viewBox="0 0 280 280">
+                            <circle cx="140" cy="140" r="90" fill="none" stroke="#5b8dee" stroke-width="50"
+                                    stroke-dasharray="180 565" stroke-dashoffset="0" />
+                            <circle cx="140" cy="140" r="90" fill="none" stroke="#f39c12" stroke-width="50"
+                                    stroke-dasharray="110 565" stroke-dashoffset="-180" />
+                            <circle cx="140" cy="140" r="90" fill="none" stroke="#1abc9c" stroke-width="50"
+                                    stroke-dasharray="140 565" stroke-dashoffset="-290" />
+                            <circle cx="140" cy="140" r="90" fill="none" stroke="#e74c3c" stroke-width="50"
+                                    stroke-dasharray="85 565" stroke-dashoffset="-430" />
+                            <circle cx="140" cy="140" r="90" fill="none" stroke="#3dd8e8" stroke-width="50"
+                                    stroke-dasharray="50 565" stroke-dashoffset="-515" />
+                        </svg>
+                    </div>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #5b8dee;"></div>
+                            <span>Team Meetings</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #f39c12;"></div>
+                            <span>Client Calls</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #1abc9c;"></div>
+                            <span>Planning</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #e74c3c;"></div>
+                            <span>Review</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #3dd8e8;"></div>
+                            <span>Training</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="chart-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5>Meetings by Department</h5>
+                        <div>
+                            <button class="btn btn-sm" style="border: none; background: none; color: #95a5a6;">🔄</button>
+                            <button class="btn btn-sm" style="border: none; background: none; color: #95a5a6;">⬇</button>
+                        </div>
+                    </div>
+                    <div class="bar-chart">
+                        <div class="bar-item">
+                            <div class="bar-label">Sales</div>
+                            <div class="bar-background">
+                                <div class="bar-fill" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label">Marketing</div>
+                            <div class="bar-background">
+                                <div class="bar-fill" style="width: 65%;"></div>
+                            </div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label">Engineering</div>
+                            <div class="bar-background">
+                                <div class="bar-fill" style="width: 90%;"></div>
+                            </div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label">HR</div>
+                            <div class="bar-background">
+                                <div class="bar-fill" style="width: 45%;"></div>
+                            </div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label">Finance</div>
+                            <div class="bar-background">
+                                <div class="bar-fill" style="width: 55%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

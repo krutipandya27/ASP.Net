@@ -1,0 +1,197 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - MOM</title>
+
+    <!-- Vendor CSS -->
+    <link href="~/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="~/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="~/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="~/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Main CSS -->
+    <link href="~/assets/css/style.css" rel="stylesheet">
+
+    <!-- ===== SOFT NAVY BLUE SIDEBAR STYLE ===== -->
+    <style>
+        /* HEADER */
+        #header {
+            background: #ffffff;
+        }
+
+        /* MOM LOGO COLOR (NAVY) */
+        .mom {
+            color: #1e3a8a !important; /* NAVY BLUE */
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        /* ================= SIDEBAR ================= */
+        #sidebar,
+        .sidebar,
+        .sidebar-nav {
+            background-color: #061858 !important;
+        }
+
+            /* Remove white backgrounds inside sidebar */
+            .sidebar * {
+                background-color: transparent !important;
+            }
+
+            /* Sidebar links */
+            .sidebar-nav .nav-link {
+                color: #ffffff !important;
+                font-weight: 500;
+            }
+
+                /* Icons */
+                .sidebar-nav .nav-link i {
+                    color: #ffffff !important;
+                }
+
+                /* Hover */
+                .sidebar-nav .nav-link:hover {
+                    background-color: rgba(255, 255, 255, 0.15) !important;
+                }
+
+                /* Active */
+                .sidebar-nav .nav-link.active {
+                    background-color: rgba(255, 255, 255, 0.25) !important;
+                    font-weight: 600;
+                }
+
+            /* Sidebar headings */
+            .sidebar-nav .nav-heading {
+                color: rgba(255, 255, 255, 0.7) !important;
+            }
+    </style>
+</head>
+
+<body>
+
+    <!-- ======= HEADER ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+
+        <div class="d-flex align-items-center justify-content-between">
+            <a asp-controller="Home" asp-action="Dashboard" class="logo d-flex align-items-center">
+                <span class="mom d-none d-lg-block">MOM</span>
+            </a>
+            <i class="bi bi-list toggle-sidebar-btn"></i>
+        </div>
+
+        <div class="search-bar">
+            <form class="search-form d-flex align-items-center">
+                <input type="text" placeholder="Search">
+                <button type="submit"><i class="bi bi-search"></i></button>
+            </form>
+        </div>
+
+        <nav class="header-nav ms-auto">
+            <ul class="d-flex align-items-center">
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                        <i class="bi bi-bell"></i>
+                        <span class="badge bg-primary badge-number">4</span>
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown pe-3">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                        <img src="https://images.vexels.com/media/users/3/299242/isolated/preview/d5775e2481cdc174bdde04f96a58cdb1-orange-summer-cute-icon.png" class="rounded-circle">
+                        <span class="d-none d-md-block ps-2">Kruti Pandya</span>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+    </header>
+    <!-- END HEADER -->
+    <!-- ======= SIDEBAR ======= -->
+    <aside id="sidebar" class="sidebar">
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString()=="Home" ? "active" : "")"
+                   asp-controller="Home" asp-action="Dashboard">
+                    <i class="bi bi-grid"></i><span>Dashboard</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString()=="Department" ? "active" : "")"
+                   asp-controller="Department" asp-action="DepartmentList">
+                    <i class="bi bi-building"></i><span>Department</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString()=="MeetingMember" ? "active" : "")"
+                   asp-controller="MeetingMember" asp-action="MeetingMemberList">
+                    <i class="bi bi-people"></i><span>Meeting Member</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString()=="Meetings" ? "active" : "")"
+                   asp-controller="Meetings" asp-action="MeetingsList">
+                    <i class="bi bi-calendar-event"></i><span>Meetings</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString()=="MeetingType" ? "active" : "")"
+                   asp-controller="MeetingType" asp-action="MeetingTypeList">
+                    <i class="bi bi-bookmark"></i><span>Meeting Type</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString()=="MeetingVenue" ? "active" : "")"
+                   asp-controller="MeetingVenue" asp-action="MeetingVenueList">
+                    <i class="bi bi-geo-alt"></i><span>Meeting Venue</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString()=="Staff" ? "active" : "")"
+                   asp-controller="Staff" asp-action="StaffList">
+                    <i class="bi bi-person-badge"></i><span>Staff</span>
+                </a>
+            </li>
+
+        </ul>
+    </aside>
+    <!-- END SIDEBAR -->
+    <!-- ======= MAIN ======= -->
+    <main id="main" class="main">
+        @RenderBody()
+    </main>
+
+    <!-- ======= FOOTER ======= -->
+    <footer id="footer" class="footer">
+        <div class="copyright">© MOM</div>
+    </footer>
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+        <i class="bi bi-arrow-up-short"></i>
+    </a>
+
+    <!-- Vendor JS -->
+    <script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="~/assets/vendor/chart.js/chart.umd.js"></script>
+    <script src="~/assets/vendor/echarts/echarts.min.js"></script>
+    <script src="~/assets/vendor/quill/quill.js"></script>
+    <script src="~/assets/vendor/simple-datatables/simple-datatables.js"></script>
+
+    <!-- Main JS -->
+    <script src="~/assets/js/main.js"></script>
+
+</body>
+</html>
