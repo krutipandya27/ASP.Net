@@ -1,64 +1,145 @@
-﻿@model MOM.Models.StaffModel;
-<div class="card">
-    <div class="card-body">
+@model MOM.Models.StaffModel
 
-        <h5 class="card-title">Staff Form</h5>
+<style>
+    body {
+        background-color: #f8f9fa;
+        padding: 40px 0;
+    }
 
-        <form asp-action="Save" method="post" class="row g-3">
+    .form-container {
+        background-color: white;
+        border-radius: 12px;
+        padding: 40px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        max-width: 900px;
+        margin: 0 auto;
+    }
 
-            <!-- Staff Name -->
-            <div class="col-md-6">
-                <label for="StaffName" class="form-label" asp-for="StaffName">Staff Name</label>
-                <input type="text"
-                       class="form-control"
-                       id="StaffName"
-                       placeholder="Enter staff name"
-                       asp-for="StaffName"
-                       >
-            </div>
+    .form-title {
+        color: #1e3a5f;
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 30px;
+        text-align: center;
+    }
 
-            <!-- Mobile No -->
-            <div class="col-md-6">
-                <label for="MobileNo" asp-for="MobileNo" class="form-label">Mobile No</label>
-                <input type="tel"
-                       class="form-control"
-                       id="MobileNo"
-                       placeholder="Enter mobile number"
-                       asp-for="MobileNo"
-                       >
-            </div>
+    .form-label {
+        color: #1e3a5f;
+        font-weight: 500;
+        margin-bottom: 8px;
+        font-size: 15px;
+    }
 
-            <!-- Email Address -->
-            <div class="col-md-6">
-                <label for="EmailAddress" asp-for="EmailAddress" class="form-label">Email Address</label>
-                <input type="email"
-                       class="form-control"
-                       id="EmailAddress"
-                       placeholder="Enter email address"
-                       asp-for="EmailAddress">
-            </div>
+    .form-control {
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 12px 16px;
+        font-size: 15px;
+        transition: all 0.3s ease;
+    }
 
-            <!-- Remarks -->
-            <div class="col-md-6">
-                <label for="Remarks" asp-for="Remarks" class="form-label">Remarks</label>
-                <input type="text"
-                       class="form-control"
-                       id="Remarks"
-                       placeholder="Enter remarks"
-                       asp-for="Remarks">
-            </div>
+    .form-control:focus {
+        border-color: #1e3a5f;
+        box-shadow: 0 0 0 0.2rem rgba(30, 58, 95, 0.15);
+    }
 
-            <!-- Buttons -->
-            <div class="col-12 text-center mt-3">
-                <button type="submit" class="btn btn-primary px-4">
-                    Submit
-                </button>
-                <a href="StaffList.html" asp-action="StaffList" asp-controller="Staff" class="btn btn-secondary px-4 ms-2">
-                    Cancel
-                </a>
-            </div>
+    .form-control::placeholder {
+        color: #adb5bd;
+    }
 
-        </form>
+    .btn-submit {
+        background-color: #1e3a5f;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 40px;
+        font-size: 16px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        margin-right: 15px;
+    }
 
-    </div>
+    .btn-submit:hover {
+        background-color: #152b47;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(30, 58, 95, 0.3);
+    }
+
+    .btn-cancel {
+        background-color: white;
+        color: #1e3a5f;
+        border: 2px solid #1e3a5f;
+        border-radius: 8px;
+        padding: 12px 40px;
+        font-size: 16px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .btn-cancel:hover {
+        background-color: #1e3a5f;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(30, 58, 95, 0.3);
+    }
+
+    .button-group {
+        text-align: center;
+        margin-top: 30px;
+    }
+</style>
+
+<div class="form-container">
+
+    <h3 class="form-title">Staff Form</h3>
+
+    <form asp-action="Save" method="post" class="row g-4">
+
+        <!-- Staff Name -->
+        <div class="col-md-6">
+            <label asp-for="StaffName" class="form-label"></label>
+            <input asp-for="StaffName"
+                   class="form-control"
+                   placeholder="Enter staff name">
+            <span asp-validation-for="StaffName" class="text-danger"></span>
+        </div>
+
+        <!-- Mobile No -->
+        <div class="col-md-6">
+            <label asp-for="MobileNo" class="form-label"></label>
+            <input asp-for="MobileNo"
+                   class="form-control"
+                   placeholder="Enter mobile number">
+            <span asp-validation-for="MobileNo" class="text-danger"></span>
+        </div>
+
+        <!-- Email Address -->
+        <div class="col-md-6">
+            <label asp-for="EmailAddress" class="form-label"></label>
+            <input asp-for="EmailAddress"
+                   class="form-control"
+                   placeholder="Enter email address">
+            <span asp-validation-for="EmailAddress" class="text-danger"></span>
+        </div>
+
+        <!-- Remarks -->
+        <div class="col-md-6">
+            <label asp-for="Remarks" class="form-label"></label>
+            <input asp-for="Remarks"
+                   class="form-control"
+                   placeholder="Enter remarks">
+            <span asp-validation-for="Remarks" class="text-danger"></span>
+        </div>
+
+        <!-- Buttons -->
+        <div class="col-12 button-group">
+            <button type="submit" class="btn-submit">Submit</button>
+            <a asp-action="StaffList"
+               asp-controller="Staff"
+               class="btn-cancel">Cancel</a>
+        </div>
+
+    </form>
+
 </div>
+
